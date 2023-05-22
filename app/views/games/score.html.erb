@@ -1,0 +1,21 @@
+<div class="container">
+  <h1 class="title">Result</h1>
+
+  <%if !@api_response["found"]%>
+
+    <p class="result">Sorry but <strong><%= params[:response] %></strong> does not seem to be a valid English world...</p>
+  <% elsif !@valide%>
+
+    <p class="result">Sorry but <strong><%= params[:response] %></strong> can't be build out of <%= params[:letters].gsub(" ", ", ") %></p>
+  <% else %>
+
+    <p class="result"><strong>Congratulation!</strong> <%= params[:response] %> is a valid English world!</p>
+
+    <p><strong>Score : <%= params[:response].length ** 2 %></strong></p>
+    <% session[:score] == nil ?  session[:score] = params[:response].length ** 2 : session[:score] += params[:response].length ** 2%>
+    <p><strong>Total score : <%= session[:score] %></strong></p>
+
+  <% end %>
+
+  <%= link_to "Play again", new_path %>
+</div>
